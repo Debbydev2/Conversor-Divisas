@@ -35,25 +35,23 @@ public class Convertidor {
     public static void convertirMonedas() {
         // Opciones de conversión en el JComboBox
         String[] opcionesMonedas = {
-                "Colones a Dolares", "Colones a Euros", "Colones a Libras",
-                "Colones a Yenes", "Colones a Wones", "Dolares a Colones",
-                "Euros a Colones", "Libras a Colones", "Yenes a Colones", "Wones a Colones"
+            "Colones > Dólares", "Colones > Euros", "Colones > Libras",
+            "Colones > Yenes", "Colones > Wones", "Dólares > Colones",
+            "Euros > Colones", "Libras > Colones", "Yenes > Colones", "Wones > Colones"
         };
 
         // Mapa para almacenar las tasas de cambio
         Map<String, Double> tasasDeCambio = new HashMap<>();
-        tasasDeCambio.put("Colones a Dólares", 0.0018);
-        tasasDeCambio.put("Colones a Euros", 0.0017);
-        tasasDeCambio.put("Colones a Libras", 0.0014);
-        tasasDeCambio.put("Colones a Yenes", 0.26);
-        tasasDeCambio.put("Colones a Wones", 2.36);
-        tasasDeCambio.put("Dolares a Colones", 542.64);
-        tasasDeCambio.put("Euros a Colones", 596.16);
-        tasasDeCambio.put("Libras a Colones", 695.64);
-        tasasDeCambio.put("Yenes a Colones", 3.80);
-        tasasDeCambio.put("Wones a Colones", 0.42);
-
-        // Agrega las demás tasas de cambio
+        tasasDeCambio.put("Colones > Dólares", 0.0018);
+        tasasDeCambio.put("Colones > Euros", 0.0017);
+        tasasDeCambio.put("Colones > Libras", 0.0014);
+        tasasDeCambio.put("Colones > Yenes", 0.26);
+        tasasDeCambio.put("Colones > Wones", 2.36);
+        tasasDeCambio.put("Dólares > Colones", 542.64);
+        tasasDeCambio.put("Euros > Colones", 596.16);
+        tasasDeCambio.put("Libras > Colones", 695.64);
+        tasasDeCambio.put("Yenes > Colones", 3.80);
+        tasasDeCambio.put("Wones > Colones", 0.42);
 
         // Mostrar el JComboBox para que el usuario seleccione la opción de conversión
         String seleccion = (String) JOptionPane.showInputDialog(
@@ -72,11 +70,12 @@ public class Convertidor {
                 double monto = Double.parseDouble(montoInput);
 
                 // Realizar la conversión según la opción seleccionada utilizando el mapa
-                double tasaDeCambio = tasasDeCambio.get(seleccion);
-                double resultado = seleccion.contains("a Colones") ? monto / tasaDeCambio : monto * tasaDeCambio;
+                String[] partes = seleccion.split(" > ");
+                String monedaOrigen = partes[0];
+                String monedaDestino = partes[1];
 
-                String monedaOrigen = getMonedaOrigen(seleccion);
-                String monedaDestino = getMonedaDestino(seleccion);
+                double tasaDeCambio = tasasDeCambio.get(seleccion);
+                double resultado = monedaDestino.equals("Colones") ? monto * tasaDeCambio : monto / tasaDeCambio;
 
                 JOptionPane.showMessageDialog(
                         null,
@@ -91,9 +90,9 @@ public class Convertidor {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    // Métodos de utilidad para obtener la moneda de origen y destino según la
-    // opción seleccionada
+    
+    // Métodos de utilidad para obtener la moneda de origen y destino según la opción seleccionada
+    
     public static String getMonedaOrigen(String seleccion) {
         String[] partes = seleccion.split(" a ");
         return partes[0];
