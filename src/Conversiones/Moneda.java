@@ -1,9 +1,11 @@
-public class Conversion {
+package Conversiones;
+
+public class Moneda {
     private String monedaOrigen;
     private String monedaDestino;
     private double tasaDeCambio;
 
-    public Conversion(String monedaOrigen, String monedaDestino, double tasaDeCambio) {
+    public Moneda(String monedaOrigen, String monedaDestino, double tasaDeCambio) {
         this.monedaOrigen = monedaOrigen;
         this.monedaDestino = monedaDestino;
         this.tasaDeCambio = tasaDeCambio;
